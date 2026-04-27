@@ -1,232 +1,166 @@
 :root {
             --primary-red: #E60000;
             --dark-red: #660000;
-            --deep-black: #050505;
+            --deep-black: #050505; 
             --text-red: #ff4d4d;
-            --fire-orange: #ff8000;
-            --fire-yellow: #8d8669;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--deep-black);
-            color: white;
+        html, body {
+            width: 100%;
+            max-width: 100%;
             overflow-x: hidden;
             position: relative;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--deep-black); 
+            color: white;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Class untuk mengunci scroll saat overlay belum dibuka */
-        .locked-scroll {
-            overflow: hidden !important;
-            height: 100vh;
-        }
+        .locked-scroll { overflow: hidden !important; height: 100vh; }
+        .font-serif { font-family: 'Playfair Display', serif; }
 
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Glowing Text Effect */
         .glow-text {
             color: #fff;
-            text-shadow: 0 0 10px var(--primary-red), 
-                         0 0 20px var(--primary-red), 
-                         0 0 30px var(--dark-red);
+            text-shadow: 0 0 10px var(--primary-red), 0 0 20px var(--primary-red), 0 0 30px var(--dark-red);
             animation: pulse-glow 2s infinite alternate;
         }
 
         @keyframes pulse-glow {
-            from {
-                text-shadow: 0 0 10px var(--primary-red), 0 0 20px var(--primary-red);
-            }
-            to {
-                text-shadow: 0 0 15px var(--primary-red), 0 0 30px var(--primary-red), 0 0 45px var(--dark-red);
-            }
+            from { text-shadow: 0 0 10px var(--primary-red), 0 0 20px var(--primary-red); }
+            to { text-shadow: 0 0 15px var(--primary-red), 0 0 30px var(--primary-red), 0 0 45px var(--dark-red); }
         }
 
-        /* Fire Border Animation */
-        .fire-border {
+        /* PARALLAX HEADER */
+        #parallax-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: 0; overflow: hidden; background: #000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+
+        .stars-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2342&auto=format&fit=crop');
+            background-size: cover; background-position: center; opacity: 0.6; z-index: 1;
+        }
+
+        .parallax-avatar-wrapper {
+            position: relative; z-index: 2; text-align: center; width: 100%; padding: 0 20px; will-change: transform, opacity;
+        }
+
+        /* === [PEMBARUAN: EFEK CINCIN API BLOOD MOON INTENS] === */
+        .moon-glow {
             position: relative;
-            z-index: 1;
-            border: 4px solid var(--primary-red);
-            animation: fire-flicker 1.5s infinite alternate, fire-burn 3s infinite linear;
+            z-index: 3;
+            border-radius: 50%;
+            /* Cincin api intens baru, lebih tajam dan cerah seperti api melingkar */
+            box-shadow: 
+                0 0 10px rgba(255, 77, 77, 1),   /* Cincin cerah tajam */
+                0 0 25px rgba(230, 0, 0, 0.9),  /* Glow api utama intens */
+                0 0 50px rgba(230, 0, 0, 0.7);  /* Pendaran api luar yang lebih luas */
+            animation: moon-pulse 2s infinite alternate;
         }
 
-        @keyframes fire-flicker {
+        @keyframes moon-pulse {
             0% { 
                 box-shadow: 
-                    0 -10px 20px rgba(230, 0, 0, 0.6),
-                    0 5px 15px rgba(255, 128, 0, 0.4),
-                    0 0 10px rgba(255, 204, 0, 0.3);
+                    0 0 10px rgba(255, 77, 77, 1), 
+                    0 0 25px rgba(230, 0, 0, 0.9), 
+                    0 0 50px rgba(230, 0, 0, 0.7);
             }
             100% { 
                 box-shadow: 
-                    0 -15px 35px rgba(230, 0, 0, 0.8),
-                    0 8px 25px rgba(255, 69, 0, 0.6),
-                    0 0 20px rgba(255, 255, 0, 0.5);
+                    0 0 15px rgba(255, 100, 100, 1),  /* Cincin cerah lebih intens saat denyut */
+                    0 0 40px rgba(230, 0, 0, 1),      /* Glow api utama lebih intens */
+                    0 0 75px rgba(230, 0, 0, 0.85);   /* Pendaran luar lebih luas */
             }
         }
+        /* ==================================================== */
 
-        @keyframes fire-burn {
-            0% { filter: hue-rotate(0deg) brightness(1); }
-            50% { filter: hue-rotate(5deg) brightness(1.2); }
-            100% { filter: hue-rotate(0deg) brightness(1); }
+        /* MAIN CONTENT */
+        #main-content {
+            position: relative; 
+            z-index: 10; 
+            margin-top: 100vh; 
+            background-color: transparent; 
         }
 
-        .NamaAdrian {
-            margin-top: 20px;
-            margin-bottom: 20px;
+        /* PENUTUP LAYER BOCOR */
+        .solid-black-bg {
+            position: relative;
+            z-index: 5; 
+            background-color: var(--deep-black);
+            width: 100%;
+            min-height: 100vh;
+            margin-top: -2px; 
+            padding-top: 22px; 
+            padding-bottom: 40px;
         }
 
-        /* Blurred Background Blobs */
-        .bg-blobs {
-            position: fixed;
-            top: 0;
+        /* GELOMBANG BERTINGKAT */
+        .waves-container {
+            position: absolute; 
+            bottom: 100%; 
             left: 0;
             width: 100%;
+            line-height: 0;
+            pointer-events: none;
+            overflow: visible; 
+            z-index: 1; 
+        }
+
+        .wave-layer {
+            position: absolute;
+            bottom: 0; 
+            left: 0;
+            width: 100%;
+            display: block;
+            transform-origin: bottom; 
+            will-change: transform;
+        }
+
+        .wave-layer svg {
+            width: 100%;
             height: 100%;
-            z-index: -1;
-            overflow: hidden;
+            display: block;
         }
 
-        .blob {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: var(--dark-red);
-            filter: blur(80px);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: move-blobs 20s infinite alternate;
-        }
+        .wave-back { height: 150px; z-index: 1; filter: drop-shadow(0 -15px 25px rgba(230, 0, 0, 0.9)); }
+        .wave-back .shape-fill { fill: #990000; } 
+
+        .wave-mid { height: 110px; z-index: 2; filter: drop-shadow(0 -5px 15px rgba(102, 0, 0, 0.6)); }
+        .wave-mid .shape-fill { fill: #330000; } 
+
+        .wave-front { height: 70px; z-index: 3; }
+        .wave-front .shape-fill { fill: var(--deep-black); } 
 
         @media (min-width: 768px) {
-            .blob {
-                width: 400px;
-                height: 400px;
-                filter: blur(100px);
-            }
+            .wave-back { height: 300px; }
+            .wave-mid { height: 220px; }
+            .wave-front { height: 140px; }
         }
 
-        @keyframes move-blobs {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(20%, 30%); }
-        }
+        /* KOMPONEN LAINNYA */
+        .bg-blobs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; pointer-events: none;}
+        .blob { position: absolute; width: 300px; height: 300px; background: var(--dark-red); filter: blur(80px); border-radius: 50%; opacity: 0.3; animation: move-blobs 20s infinite alternate; }
+        @media (min-width: 768px) { .blob { width: 400px; height: 400px; filter: blur(100px); } }
+        @keyframes move-blobs { from { transform: translate(-10%, -10%); } to { transform: translate(20%, 30%); } }
 
-        /* Glassmorphism Effect */
-        .glass {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(230, 0, 0, 0.3);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(230, 0, 0, 0.2);
-            margin-top: 10px;
-        }
-
+        .glass { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(230, 0, 0, 0.3); border-radius: 20px; box-shadow: 0 8px 32px 0 rgba(230, 0, 0, 0.2); margin-top: 10px; }
         .red-text { color: var(--text-red); }
+        .btn-red { background: linear-gradient(45deg, #8B0000, #E60000); color: white; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(230, 0, 0, 0.5); border: none;}
+        .btn-red:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(230, 0, 0, 0.8); }
 
-        .btn-red {
-            background: linear-gradient(45deg, #8B0000, #E60000);
-            color: white;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(230, 0, 0, 0.5);
-        }
+        #opening-overlay { position: fixed; inset: 0; z-index: 9999; background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.7)), url('download.jpeg'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s ease, visibility 1s; }
+        .hidden-overlay { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        .btn-red:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(230, 0, 0, 0.8);
-        }
-
-        .spark {
-            position: absolute;
-            pointer-events: none;
-            z-index: 10;
-            border-radius: 50%;
-            filter: blur(1px);
-            box-shadow: 0 0 10px currentColor;
-        }
-
-        /* Overlay Pembuka */
-        #opening-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.7)), url('download.jpeg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 1s ease, visibility 1s;
-        }
-
-        .hidden-overlay {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        /* Countdown Card */
-        .timer-box {
-            background: rgba(230, 0, 0, 0.1);
-            border: 1px solid var(--primary-red);
-            padding: 10px;
-            min-width: 70px;
-            border-radius: 12px;
-            box-shadow: inset 0 0 10px rgba(230, 0, 0, 0.2);
-        }
-
-        .music-control {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 50px;
-            height: 50px;
-            z-index: 9999;
-            cursor: pointer;
-            border: 2px solid #E60000;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(230, 0, 0, 0.5);
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        @media (min-width: 768px) {
-            .music-control {
-                width: 60px;
-                height: 60px;
-            }
-        }
-
-        .music-element {
-            width: 60%;
-            height: 60%;
-            object-fit: contain;
-        }
-
-        .hidden { display: none !important; }
-
-        .spark, .spark-bg {
-            pointer-events: none;
-            border-radius: 50%;
-            z-index: 9999;
-        }
-
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden;
-            position: relative;
-        }
+        .timer-box { background: rgba(230, 0, 0, 0.1); border: 1px solid var(--primary-red); padding: 10px; min-width: 70px; border-radius: 12px; box-shadow: inset 0 0 10px rgba(230, 0, 0, 0.2); }
         
-        /* Utility animasi memutar untuk tombol musik */
-        .rotating {
-            animation: spin 4s linear infinite;
-        }
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
+        .music-control { position: fixed; bottom: 25px; right: 25px; width: 50px; height: 50px; z-index: 9998; cursor: pointer; border: 2px solid #E60000; border-radius: 50%; box-shadow: 0 0 15px rgba(230, 0, 0, 0.5); background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        @media (min-width: 768px) { .music-control { width: 60px; height: 60px; } }
+        .music-element { width: 60%; height: 60%; object-fit: contain; }
+        
+        .hidden { display: none !important; }
+        .spark, .spark-bg { position: absolute; pointer-events: none; z-index: 9999; border-radius: 50%; }
+        .rotating { animation: spin 4s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
